@@ -17,4 +17,4 @@
   <li>2. Add Article</li>
   <li>3. Update Article</li>
 </ul>
-you can see detail code in Member package()
+<a href="https://github.com/Anak-2/MyBoard/tree/master/src/main/java/com/myspring/pro30/member">you can see detail code in Board package</a>
