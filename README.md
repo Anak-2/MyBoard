@@ -1,5 +1,5 @@
 # MyBoard
-<h1>Here are various functions which myBoard offers!</h1>
+<h2>Here are various functions which myBoard offers!</h2>
 
 <h3>Deal With User Info</h3>
 1. Show List of Members
