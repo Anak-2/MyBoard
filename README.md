@@ -2,7 +2,7 @@
 <h2>Here are various functions which myBoard offers!</h2>
 
 <h3>Deal With User Info</h3>
-<ul>
+<ul style="list-style: none">
   <li>1. Show List of Members</li>
   <li>2. Add Member</li>
   <li>3. Remove Member</li>
@@ -17,4 +17,4 @@
   <li>2. Add Article</li>
   <li>3. Update Article</li>
 </ul>
-you can see detail code in Member package
+<p>you can see detail code in Member package</p>
