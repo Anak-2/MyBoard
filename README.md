@@ -9,8 +9,7 @@
   <li>4. Login</li>
   <li>5. Update Member</li>
 </ul>
-<br>
-<p >you can see detail code in Member package</p><br><br>
+<p >you can see detail code in Member package</p>
 
 <h3>Deal With Board</h3>
 <ul>
@@ -18,5 +17,4 @@
   <li>2. Add Article</li>
   <li>3. Update Article</li>
 </ul>
-<br>
-you can see detail code in Member package<br><br>
+you can see detail code in Member package
