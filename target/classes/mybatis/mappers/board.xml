@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.board">
+	<resultMap id="articleResult" type="boardVO">
+		<result property="level" column="level" />
+		<result property="articleNO" column="articleNO" />
+		<result property="parentNO" column="parentNO" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="writeDate" column="wrtieDate" />
+		<result property="imageFileName" column="imageFileName" />
+		<result property="id" column="id" />
+	</resultMap>
+
+	<resultMap id="imgResult" type="imageVO">
+		<result property="imageFileNO" column="imageFileNO" />
+		<result property="articleNO" column="articleNO" />
+		<result property="imageFileName" column="imageFileName" />
+	</resultMap>
+
+	<select id="selectAllarticlesList" resultMap="articleResult">
+		<![CDATA[
+			SELECT level, articleNO, parentNO, title, content, writeDate, imageFileName, id
+			from t_board
+			START WITH parentNO=0
+			CONNECT BY PRIOR articleNO = parentNO
+			ORDER SIBLINGS BY articleNO ASC
+		]]>
+	</select>
+
+	<select id="selectNewArticleNO" resultType="int">
+		<![CDATA[
+			select nvl(max(articleNO), 0) + 1 from t_board
+		]]>
+	</select>
+
+	<insert id="insertNewArticle" parameterType="java.util.Map">
+		<![CDATA[
+			INSERT into t_board(articleNO, title, content, imageFileName, id)
+			VALUES(#{articleNO},#{title},#{content},null,#{id})
+		]]>
+	</insert>
+
+	<insert id="insertNewImage" parameterType="java.util.Map">
+		<foreach item="item" collection="list" open="INSERT ALL"
+			separator=" " close="SELECT * FROM DUAL">
+			INTO t_imageFile(imageFileNO, imageFileName,
+			articleNO, regDate)
+			VALUES (#{item.imageFileNO},
+			#{item.imageFileName}, #{item.articleNO},
+			sysdate)
+		</foreach>
+	</insert>
+
+	<select id="selectNewImageFileNO" resultType="int">
+	    <![CDATA[
+	      SELECT  nvl(max(imageFileNO),0) from t_imageFile		
+	    ]]>
+	</select>
+
+
+	<select id="selectImageFileList" resultMap="imgResult"
+		parameterType="int">
+	    <![CDATA[
+	      SELECT * from t_imageFile
+	      where articleNO=#{articleNO}	
+	    ]]>
+	</select>
+	
+	<select id="selectArticle" parameterType="int" resultMap="articleResult">
+		<![CDATA[
+			SELECT * FROM t_board
+			WHERE articleNO = #{articleNO}
+		]]>
+	</select>
+	
+	<!-- 글 수정 -->
+	<update id="updateArticle" parameterType="java.util.Map">
+		update t_board
+		set title = #{title}, content = #{content},
+		imageFileName = null
+		where articleNO = #{articleNO}
+	</update>
+	
+	<!-- 글 이미지 수정 -->
+	<update id="updateImage" parameterType="java.util.List">
+		<foreach item="item" collection="list" open="UPDATE t_imageFile"
+			separator=" " close="SELECT * FROM DUAL">
+			SET imageFileName = #{item.imageFileName}
+			WHERE imageFileNO = #{item.imageFileNO}
+		</foreach>
+	</update>
+</mapper>
