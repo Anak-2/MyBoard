@@ -1,8 +1,13 @@
 # MyBoard
+<style>
+  ul{
+    list-style:none;
+  }
+</style>
 <h2>Here are various functions which myBoard offers!</h2>
 
 <h3>Deal With User Info</h3>
-<ul style="list-style: none">
+<ul>
   <li>1. Show List of Members</li>
   <li>2. Add Member</li>
   <li>3. Remove Member</li>
